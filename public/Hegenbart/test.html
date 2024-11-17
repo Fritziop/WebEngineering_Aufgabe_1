@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MUD Client</title>
+  <link rel="stylesheet" href="test.css">
+</head>
+<body>
+<header>
+  <h1>MUD Game</h1>
+  <div id="player-info">
+    <p>Benutzername: <span id="playerName"></span></p>
+    <p>Inventar:</p>
+    <ul id="inventory"></ul>
+    <p>Dinge im Raum:</p>
+    <ul id="things"></ul>
+    <p>Spieler:</p>
+    <ul id="players"></ul>
+    <p>Mögliche Richtungen:</p>
+    <ul id="directions"></ul>
+  </div>
+</header>
+<main>
+  <div id="map-container">
+    <div id="map"></div>
+  </div>
+  <div id="message-area"></div>
+</main>
+<script src="script.js"></script>
+</body>
+</html>

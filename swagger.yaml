@@ -1,0 +1,222 @@
+openapi: "3.1.0"
+info:
+  version: "0.0.4"
+  title: "laby"
+  description: "API description for the labyrinth sample application for Web Engineering 1 in Stralsund"
+servers:
+  - url: "http://localhost:3000/api"
+paths:
+  /person:
+    get:
+      summary: "Get player information"
+      description: "Retrieve information about the player."
+      responses:
+        '200':
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/personfull"
+    patch:
+      summary: "Move player"
+      description: "Move player to another position through a door."
+      parameters:
+        - name: "go"
+          in: "query"
+          description: "Direction as n/s/w/e"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        '200':
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/position"
+        '422':
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/errorWithPosition"
+  /person/thing:
+    post:
+      summary: "Take a thing"
+      description: "Take an item from the current position."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/thing"
+      responses:
+        '200':
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/thing"
+        '422':
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+  /position:
+    get:
+      summary: "Get current position"
+      description: "Returns the current Position object of the player."
+      responses:
+        '200':
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/position"
+  /position/thing:
+    post:
+      summary: "Drop a thing"
+      description: "Drop an item from player at the current position."
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/thing"
+      responses:
+        '200':
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/thing"
+        '422':
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+  /door/{direction}:
+    get:
+      summary: "Get door"
+      description: "Retrieve door details in a specific direction (n/s/w/e)."
+      parameters:
+        - name: "direction"
+          in: "path"
+          description: "Direction as n/s/w/e"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        '200':
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/door"
+        '422':
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+    patch:
+      summary: "Change door status"
+      description: "Change the status of a door in a specific direction (n/s/w/e). Possible is open, close, lock, unlock"
+      parameters:
+        - name: "direction"
+          in: "path"
+          description: "Direction as n/s/w/e"
+          required: true
+          schema:
+            type: "string"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/doorAction"
+      responses:
+        '200':
+          description: "Success"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/door"
+        '422':
+          description: "Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/error"
+components:
+  schemas:
+    personfull:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+        things:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/thing"
+    person:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+    thing:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+    position:
+      type: "object"
+      properties:
+        name:
+          type: "string"
+        color:
+          type: "string"
+        description:
+          type: "string"
+        directions:
+          type: "array"
+          items:
+            type: "string"
+        persons:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/person"
+        things:
+          type: "array"
+          items:
+            $ref: "#/components/schemas/thing"
+    door:
+      type: "object"
+      properties:
+        closable:
+          type: "boolean"
+        open:
+          type: "boolean"
+        locked:
+          type: "boolean"
+    doorAction:
+      type: "object"
+      properties:
+        action:
+          type: "string"
+        key:
+          type: "string"
+    error:
+      type: "object"
+      properties:
+        error:
+          type: "string"
+    errorWithPosition:
+      type: "object"
+      properties:
+        error:
+          type: "string"
+        position:
+          $ref: "#/components/schemas/position"
