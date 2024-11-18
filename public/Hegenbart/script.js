@@ -1,7 +1,4 @@
 "use strict";
-document.addEventListener("DOMContentLoaded", () => {
-    /*loadPlayerInfo();*/
-});
 
 let player = {
     name: " ",
@@ -9,6 +6,7 @@ let player = {
     inventory: []
 };
 
+//Hier muss noch dazu, dass wenn aufheben nicht wefolgreich, dass dann der raum neu abgefragt wird
 async function pickUp(name) {
     const pickUpResponse = await fetch('/api/person/thing', {
         method: "POST",
@@ -19,15 +17,21 @@ async function pickUp(name) {
         body: JSON.stringify({
             "name": name,
         })
-
     })
-    if (pickUpResponse.ok) {
+    const responseToString = JSON.stringify(await pickUpResponse.json(), null, 0)
+
+    if (!pickUpResponse.ok) {
+        alert((`FEHLER beim Aufheben:\n`+responseToString)
+            .replace(/[{}]/g,"")
+            .trim() + '\n Objekt: '+name);
+    }else{
         player.inventory.push(name);
         await getRoomData();
         updateInventory();
     }
 }
 
+//Hier muss rein, dass das Inventar dann neu abgfragt wird, falls was fehlerhaft ist
 async function dropDown(name) {
     const dropDownResponse = await fetch('/api/position/thing', {
         method: "POST",
@@ -40,13 +44,18 @@ async function dropDown(name) {
         })
 
     })
-    if (dropDownResponse.ok) {
+    if (!dropDownResponse.ok) {
+        alert(`FEHLER beim Weglegen:\n${JSON.stringify(await dropDownResponse.json(), null, 0)}`
+            .replace(/[{}]/g,"")
+            .trim() + '\n Objekt: '+name);
+    }else{
         player.inventory.splice(player.inventory.indexOf(name), 1);
         await getRoomData();
         updateInventory();
     }
 }
 
+//Muss noch angepasst werden
 async function movePlayer(direction) {
     try {
         const doorResponse = await fetch('/api/door/'+direction, {
@@ -55,49 +64,30 @@ async function movePlayer(direction) {
                 'Cache-Control': 'no-cache',}
         });
 
+        const doorData = await doorResponse.json(); //Rückgabe der API-Anfrage
+
         if (!doorResponse.ok) {
-            throw new Error(`Fehler beim Bedienen der Tür: ${doorResponse.status}`);
+            alert(`FEHLER beim Gehen in eine Richtung:\n${JSON.stringify(doorData, null, 0)}`
+                .replace(/[{}]/g,"")
+                .trim() + '\n Richtung: '+direction);
+            console.log(`Fehler beim Bewegen: ${JSON.stringify(doorData, null, 0)}`);
+            return;
         }
 
-        const doorData = await doorResponse.json();
         if (doorData.locked) {
-            let i = 0;
-            while (i<=player.inventory.length && doorData.locked) {
-                console.log(player.inventory[i]);
-
-                const openResponse = await fetch('/api/door/e', {
-                    method: "PATCH",
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        "action": "unlock",
-                        "key": player.inventory[i]
-                    })
-                });
-
-                i++;
-
-                if (!openResponse.ok) {
-                    throw new Error(`Fehler: ${openResponse.status}`);
-
-                } else {
-                    doorData.locked = false;
-                    await fetch('/api/door/e', {
-                        method: "PATCH",
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            "action": "open",
-                            "key": null
-                        })
-                    });
-                }
+            if(!await unlockDoor(direction))
+            {
+                return;
             }
         }
+        if (!doorData.locked && !doorData.open)
+        {
+            if(!await changeDoorStatus(direction, "open"))
+            {
+                return;
+            }
+        }
+
         const moveResponse = await fetch('/api/person?go='+direction, {
             method: 'PATCH',
             headers: { 'Accept': 'application/json' }
@@ -144,7 +134,66 @@ async function movePlayer(direction) {
     }
 }
 
+//fertig, evtl. für grafische Gestaltung noch anpassen
+async function unlockDoor(direction)
+{
+    let i = 0;
+    let locked = true
+    while (i<=player.inventory.length && locked) {
 
+        const openResponse = await fetch('/api/door/'+direction, {
+            method: "PATCH",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "action": "unlock",
+                "key": player.inventory[i]
+            })
+        });
+        const responseToString = JSON.stringify(await openResponse.json(), null, 0);
+
+        i++;
+
+        if (!openResponse.ok) {
+            console.log(`Fehler beim Aufschließen der Tür: `+ responseToString);
+            alert((`FEHLER beim Aufschließen der Tür:\n ` + responseToString)
+                .replace(/[{}]/g,"")
+                .trim() + '\n Richtung: '+ direction);
+            return false;
+        } else {
+            locked = false;
+            await changeDoorStatus(direction, open)
+        }
+    }
+}
+
+//fertig
+async function changeDoorStatus(direction, action, key)
+{
+    const response = await fetch('/api/door/'+direction, {
+        method: "PATCH",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            "action": "open",
+            "key": key
+        })
+    });
+    const responseToString = JSON.stringify(await response.json(), null, 0);
+
+    if(!response.ok)
+    {
+        console.log(`Fehler beim Ändern des Türstatuses: `+ responseToString);
+        alert((`FEHLER beim Ändern des Türstatuses:\n ` + responseToString)
+            .replace(/[{}]/g,"")
+            .trim() + '\n Richtung: '+ direction);
+        return false;
+    }
+}
 
 async function loadPlayerInfo() {
     try {
@@ -242,7 +291,6 @@ async function getRoomData()
 
     } catch (error) {
         console.error("Fehler:", error);
-        displayError("Fehler beim Updaten.");
     }
 }
 
@@ -307,7 +355,7 @@ document.addEventListener("keydown", async function (event){
             await getRoomData();
             break;
         case 'ArrowUp':
-            event.preventDefault();d
+            event.preventDefault();
             await movePlayer('n');
             await getRoomData();
             break;
@@ -328,15 +376,6 @@ document.addEventListener("keydown", async function (event){
             break;
     }
 });
-window.onload(initGame());
 
-
-
-
-
-
-
-
-
-
-
+window.addEventListener("load", initGame());
+//window.onload(initGame());
