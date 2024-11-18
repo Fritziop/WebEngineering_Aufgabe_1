@@ -31,11 +31,6 @@ header, main {
 .cell {
     width: 20px;
     height: 20px;
-    /*background-color: #ddd;*/
-    /*background-color: red;*/
-}
-
-.cellbackground {
     background-color: white;
 }
 

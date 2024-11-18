@@ -6,7 +6,10 @@ let player = {
     inventory: []
 };
 
-//Hier muss noch dazu, dass wenn aufheben nicht wefolgreich, dass dann der raum neu abgefragt wird
+/**
+ * Die Funktion ermöglicht das Aufheben von Gegenständen aus einem Raum
+ * @param name Name des Items, was aufgehoben werden soll
+ */
 async function pickUp(name) {
     const pickUpResponse = await fetch('/api/person/thing', {
         method: "POST",
@@ -24,6 +27,7 @@ async function pickUp(name) {
         alert((`FEHLER beim Aufheben:\n`+responseToString)
             .replace(/[{}]/g,"")
             .trim() + '\n Objekt: '+name);
+        await getRoomData();
     }else{
         player.inventory.push(name);
         await getRoomData();
@@ -31,7 +35,10 @@ async function pickUp(name) {
     }
 }
 
-//Hier muss rein, dass das Inventar dann neu abgfragt wird, falls was fehlerhaft ist
+/**
+ * Die Funktion ermöglicht das Weglegen von Gegenständen aus dem Inventar
+ * @param name Name des Gegenstands, der weggelegt werden soll
+ */
 async function dropDown(name) {
     const dropDownResponse = await fetch('/api/position/thing', {
         method: "POST",
@@ -48,6 +55,7 @@ async function dropDown(name) {
         alert(`FEHLER beim Weglegen:\n${JSON.stringify(await dropDownResponse.json(), null, 0)}`
             .replace(/[{}]/g,"")
             .trim() + '\n Objekt: '+name);
+        await loadPlayerInfo();
     }else{
         player.inventory.splice(player.inventory.indexOf(name), 1);
         await getRoomData();
@@ -75,14 +83,14 @@ async function movePlayer(direction) {
         }
 
         if (doorData.locked) {
-            if(!await unlockDoor(direction))
+            if(await unlockDoor(direction) === false)
             {
                 return;
             }
         }
         if (!doorData.locked && !doorData.open)
         {
-            if(!await changeDoorStatus(direction, "open"))
+            if(await changeDoorStatus(direction, "open") === false)
             {
                 return;
             }
@@ -114,23 +122,31 @@ async function movePlayer(direction) {
                 break;
         }
 
-        for (let y = 0; y < 61; y++) {
-            for (let x = 0; x < 61; x++) {
-                const cell = document.getElementById(y +" "+x);
-                cell.classList.remove("player");
+        markPlayerPosition(roomData);
 
 
-                if (x === player.position.x && y === player.position.y) {
-                    cell.classList.remove("cellbackground");
-                    cell.style.backgroundColor = roomData.color;
-                    cell.classList.add("player");
-                }
-            }
-        }
 
 
     } catch (error) {
         console.error("Fehler:", error);
+    }
+}
+
+/**
+ * Die Funktion markiert die aktuelle Spielerposition mit einem Rahmen und fügt die Raumfarbe hinzu
+ * @param responseAPI Rückgabe einer API-Anfrage, welche die Raumfarbe enthält
+ */
+function markPlayerPosition(responseAPI) {
+    for (let y = 0; y < 61; y++) {
+        for (let x = 0; x < 61; x++) {
+            const cell = document.getElementById(y +" "+x);
+            cell.classList.remove("player");
+
+            if (x === player.position.x && y === player.position.y) {
+                cell.style.backgroundColor = responseAPI.color;
+                cell.classList.add("player");
+            }
+        }
     }
 }
 
@@ -196,23 +212,22 @@ async function changeDoorStatus(direction, action, key)
 }
 
 async function loadPlayerInfo() {
-    try {
         const response = await fetch('/api/person', {
             method: 'GET',
             headers: { 'Accept': 'application/json' }
         });
+        const playerData = await response.json();
+        const responseToString = JSON.stringify(playerData, null, 0);
 
         if (!response.ok) {
-            throw new Error(`Fehler beim Laden der Spielerinformationen: ${response.status}`);
+            console.log(`FEHLER beim Laden der Spielerinformationen: `+ responseToString);
+            alert((`FEHLER beim Laden der Spielerinformationen:\n ` + responseToString)
+                .replace(/[{}]/g,"")
+                .trim());
+            return false;
         }
 
-        const playerData = await response.json();
-
-        // Spielername und Inventar aktualisieren
         updatePlayerInfo(playerData.name, playerData.things);
-    } catch (error) {
-        console.error("Fehler:", error);
-    }
 }
 
 function updatePlayerInfo(name, things) {
@@ -224,12 +239,15 @@ function updatePlayerInfo(name, things) {
 
     things.forEach(item => {
         player.inventory.push(item.name);
-        updateInventory();
     });
+    updateInventory();
 }
 
-function updateInventory()
-{
+/**
+ * Die Funktion aktualisiert das Inventar und den Nutzernamen auf der Benutzeroberfläche:
+ * Darstellung in Form von Buttons, welche das Hinlegen von Dingen ermöglichen
+ */
+function updateInventory() {
     const inventoryElement = document.getElementById("inventory");
     inventoryElement.innerHTML = "";
 
@@ -239,13 +257,6 @@ function updateInventory()
         listItem.addEventListener("click", ()=> dropDown(item).then(getRoomData));
         inventoryElement.appendChild(listItem);
     });
-}
-
-function initGame() {
-    loadPlayerInfo();
-    renderMap();
-    getRoomData();
-
 }
 
 async function getRoomData()
@@ -284,7 +295,7 @@ async function getRoomData()
         });
 
         playerData.directions.forEach(item => {
-            const listItem = document.createElement("li");
+            const listItem = document.createElement("button");
             listItem.textContent = item;
             directionsList.appendChild(listItem);
         });
@@ -294,18 +305,18 @@ async function getRoomData()
     }
 }
 
+
 async function renderMap() {
     const mapElement = document.getElementById("map");
     mapElement.innerHTML = "";  // Karte zurücksetzen
 
-    try {
         const response = await fetch('/api/position', {
             method: 'GET',
             headers: { 'Accept': 'application/json' }
         });
 
         if (!response.ok) {
-            throw new Error(`Fehler beim Laden der Spielerinformationen: ${response.status}`);
+            alert("FEHLER beim Laden der Positionsdaten!")
         }
 
         const roomData = await response.json();
@@ -315,27 +326,28 @@ async function renderMap() {
 
                 const cell = document.createElement("div");
                 cell.id = y +" "+x;
-                cell.classList.add("cell","cellbackground");
-
-
-                if (x === player.position.x && y === player.position.y) {
-                    cell.classList.remove("cellbackground");
-                    cell.style.backgroundColor = roomData.color;
-                    cell.classList.add("player");
-                }
+                cell.classList.add("cell");
                 mapElement.appendChild(cell);
             }
         }
+        markPlayerPosition(roomData);
+}
 
-
-    } catch (error) {
-        console.error("Fehler:", error);
-    }
-
+/**
+ * Die Funktion baut das Spiel am Anfang auf, indem sie einmal alle wichtigen Informationen abruft
+ * @returns {Promise<void>}
+ */
+async function initGame() {
+    await loadPlayerInfo();
+    await renderMap();
+    await getRoomData();
 
 }
 
-// Bewegungsmechanismus sowohl mit Pfeiltasten als auch mit WASD
+/**
+ *EventListener, welcher auf die Eingaben des Nutzers bezüglich der Bewegung reagiert
+ * Bewegung möglich mit WASD und den Pfeiltasten
+ */
 document.addEventListener("keydown", async function (event){
     switch (event.key){
         case 'w':
@@ -378,4 +390,3 @@ document.addEventListener("keydown", async function (event){
 });
 
 window.addEventListener("load", initGame());
-//window.onload(initGame());
