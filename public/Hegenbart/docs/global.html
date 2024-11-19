@@ -104,6 +104,376 @@
     
 
     
+    <h4 class="name" id="PostPatchAPI"><span class="type-signature">(async) </span>PostPatchAPI<span class="signature">(API, method, body)</span><span class="type-signature"> &rarr; {Promise.&lt;any>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Die Funktion stellt eine Grundstruktur für den Aufruf von POST/PATCH an dei API dar, je nach Parametern lässt sich Art und Inhalt wählen
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>API</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">API-Struktur: alles was nach /api/ kommen soll</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>method</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Angabe ob es POST oder PATCH sein soll</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>body</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Der Body, welcher übergeben werden soll</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line19">line 19</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Throws:</h5>
+
+        
+
+    <div class="param-desc">
+    
+        Error Falls die Antwort des Servers nicht positiv ausfällt wird ein Fehler geworfen
+    
+    </div>
+
+
+    
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    Die Antwort des Servers, falls kein Fehler vorliegt
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;any></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="changeDoorStatus"><span class="type-signature">(async) </span>changeDoorStatus<span class="signature">(direction, action, key)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Die Funktion ermöglicht allgemein den Wechsel des Türstatuses<br>Der Status ist per Parameter wählbar
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>direction</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Richtung in welcher die Tür liegt</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>action</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Was mit der Tür gemacht werden soll</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>key</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Schlüssel, welcher das Auf- und Abschließen benötigt wird</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line154">line 154</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="dropDown"><span class="type-signature">(async) </span>dropDown<span class="signature">(name)</span><span class="type-signature"></span></h4>
     
 
@@ -112,7 +482,7 @@
 
 
 <div class="description">
-    Die Funktion ermöglicht das Weglegen von Gegenständen aus dem Inventar
+    Die Funktion ermöglicht das Weglegen von Gegenständen aus dem Inventar<br>Falls das Weglegen nicht erfolgreich war, wird das Inventar erneut vom Server abgefragt
 </div>
 
 
@@ -200,7 +570,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line42">line 42</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line76">line 76</a>
     </li></ul></dd>
     
 
@@ -244,7 +614,7 @@
 
 
 <div class="description">
-    Funktion für die GET-API-Anfragen
+    Die Funktion stellt ein konfigurierbares Grundgerüst für die GET-Anfragen an die API dar
 </div>
 
 
@@ -291,7 +661,7 @@
 
             
 
-            <td class="description last">der Parameter welcher über die Anfrageart entscheidet (also z.B. person oder position)</td>
+            <td class="description last">API-Struktur: alles was nach /api/ kommen soll</td>
         </tr>
 
     
@@ -332,7 +702,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line303">line 303</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line41">line 41</a>
     </li></ul></dd>
     
 
@@ -361,7 +731,7 @@
 
     <div class="param-desc">
     
-        Error falls API-Anfrage nicht erfolgreich
+        Error Falls die Antwort des Servers nicht positiv ausfällt wird ein Fehler geworfen
     
     </div>
 
@@ -373,7 +743,7 @@
 
         
 <div class="param-desc">
-    Rückgabe der APi Anfrage
+    Die Antwort des Servers, falls kein Fehler vorliegt
 </div>
 
 
@@ -402,7 +772,7 @@
     
 
     
-    <h4 class="name" id="initGame"><span class="type-signature">(async) </span>initGame<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
+    <h4 class="name" id="initGame"><span class="type-signature">(async) </span>initGame<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
     
@@ -454,7 +824,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line342">line 342</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line415">line 415</a>
     </li></ul></dd>
     
 
@@ -479,24 +849,156 @@
 
 
 
-<h5>Returns:</h5>
+
+
+
+
 
         
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise.&lt;void></span>
-
-
-    </dd>
-</dl>
+            
 
     
+
+    
+    <h4 class="name" id="lockDoor"><span class="type-signature">(async) </span>lockDoor<span class="signature">(direction, needToClose)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Die Funktion verschließt eine Tür, falls nötig wird sie vorher noch geschlossen<br>Dabei wird alles im Inventar als möglicher Schlüssel durchprobiert
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>direction</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Die Richtung, in welcher die Tür liegt</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>needToClose</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Parameter, welcher übergibt, ob die Tür vorher noch geschlossen werden muss</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line122">line 122</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -604,7 +1106,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line139">line 139</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line383">line 383</a>
     </li></ul></dd>
     
 
@@ -648,7 +1150,7 @@
 
 
 <div class="description">
-    Die Funktion ermöglicht das Aufheben von Gegenständen aus einem Raum
+    Die Funktion ermöglicht das Aufheben von Gegenständen aus einem Raum<br>Der Raum wird nach einem Aufhebeversuch immer neugeladen
 </div>
 
 
@@ -736,7 +1238,227 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line13">line 13</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line59">line 59</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="renderMap"><span class="type-signature">(async) </span>renderMap<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Die Funktion baut die Map auf und markiert die erste Spielerposition
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line290">line 290</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="unlockDoor"><span class="type-signature">(async) </span>unlockDoor<span class="signature">(direction)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Die Funktion schließt eine Tür auf und öffnet sie.<br>Dabei wird alles im Inventar automatisch als Schlüssel durchprobiert
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>direction</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Die Richtung in welcher die Tür liegt</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line95">line 95</a>
     </li></ul></dd>
     
 
@@ -824,7 +1546,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line248">line 248</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line201">line 201</a>
     </li></ul></dd>
     
 
@@ -870,13 +1592,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#dropDown">dropDown</a></li><li><a href="global.html#getAPI">getAPI</a></li><li><a href="global.html#initGame">initGame</a></li><li><a href="global.html#markPlayerPosition">markPlayerPosition</a></li><li><a href="global.html#pickUp">pickUp</a></li><li><a href="global.html#updateInventory">updateInventory</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#PostPatchAPI">PostPatchAPI</a></li><li><a href="global.html#changeDoorStatus">changeDoorStatus</a></li><li><a href="global.html#dropDown">dropDown</a></li><li><a href="global.html#getAPI">getAPI</a></li><li><a href="global.html#initGame">initGame</a></li><li><a href="global.html#lockDoor">lockDoor</a></li><li><a href="global.html#markPlayerPosition">markPlayerPosition</a></li><li><a href="global.html#pickUp">pickUp</a></li><li><a href="global.html#renderMap">renderMap</a></li><li><a href="global.html#unlockDoor">unlockDoor</a></li><li><a href="global.html#updateInventory">updateInventory</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Nov 19 2024 13:25:28 GMT+0100 (Mitteleuropäische Normalzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Nov 19 2024 22:56:15 GMT+0100 (Mitteleuropäische Normalzeit)
 </footer>
 
 <script> prettyPrint(); </script>
