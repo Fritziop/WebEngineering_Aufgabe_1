@@ -34,9 +34,27 @@ header, main {
     background-color: white;
 }
 
+.doorTop {
+    box-shadow: inset 0 3px 0 0 black;
+}
+
+.doorBottom {
+    box-shadow: inset 0 -3px 0 0 black;
+}
+
+.doorLeft {
+    box-shadow: inset 3px 0 0 0 black;
+}
+
+.doorRight {
+    box-shadow: inset -3px 0 0 0 black;
+}
+
 .player {
     box-shadow: inset 0 0 0 3px black;
 }
+
+
 
 #message-area {
     margin-top: 20px;

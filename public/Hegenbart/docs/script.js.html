@@ -1,4 +1,32 @@
-"use strict";
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: script.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: script.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict";
 
 let player = {
     name: " ",
@@ -88,7 +116,7 @@ async function movePlayer(direction) {
                 return;
             }
         }
-        if (!doorData.locked && !doorData.open)
+        if (!doorData.locked &amp;&amp; !doorData.open)
         {
             if(await changeDoorStatus(direction, "open") === false)
             {
@@ -137,28 +165,14 @@ async function movePlayer(direction) {
  * @param responseAPI Rückgabe einer API-Anfrage, welche die Raumfarbe enthält
  */
 function markPlayerPosition(responseAPI) {
-    for (let y = 0; y < 61; y++) {
-        for (let x = 0; x < 61; x++) {
+    for (let y = 0; y &lt; 61; y++) {
+        for (let x = 0; x &lt; 61; x++) {
             const cell = document.getElementById(y +" "+x);
             cell.classList.remove("player");
 
-            if (x === player.position.x && y === player.position.y) {
+            if (x === player.position.x &amp;&amp; y === player.position.y) {
                 cell.style.backgroundColor = responseAPI.color;
                 cell.classList.add("player");
-                responseAPI.directions.forEach((direction) => {switch(direction) {
-                    case "n":
-                        cell.classList.add("doorTop");
-                        break;
-                    case "s":
-                        cell.classList.add("doorBottom");
-                        break;
-                    case "e":
-                        cell.classList.add("doorRight");
-                        break;
-                    case "w":
-                        cell.classList.add("doorLeft");
-                        break;
-                }})
             }
         }
     }
@@ -169,7 +183,7 @@ async function unlockDoor(direction)
 {
     let i = 0;
     let locked = true
-    while (i<=player.inventory.length && locked) {
+    while (i&lt;=player.inventory.length &amp;&amp; locked) {
 
         const openResponse = await fetch('/api/door/'+direction, {
             method: "PATCH",
@@ -311,7 +325,7 @@ async function getRoomData()
 /**
  * Funktion für die GET-API-Anfragen
  * @param API der Parameter welcher über die Anfrageart entscheidet (also z.B. person oder position)
- * @returns {Promise<any>} Rückgabe der API-Anfrage
+ * @returns {Promise&lt;any>} Rückgabe der APi Anfrage
  * @throws Error falls API-Anfrage nicht erfolgreich
  */
 async function getAPI(API)
@@ -327,17 +341,16 @@ async function getAPI(API)
     return await response.json();
 }
 
-/**
- * Die Funktion baut die Map auf und markiert die erste Spielerposition
- */
 async function renderMap() {
     const mapElement = document.getElementById("map");
     mapElement.innerHTML = "";  // Karte zurücksetzen
 
     try {
         const roomData = await getAPI("position");
-        for (let y = 0; y < 61; y++) {
-            for (let x = 0; x < 61; x++) {
+
+        for (let y = 0; y &lt; 61; y++) {
+            for (let x = 0; x &lt; 61; x++) {
+
                 const cell = document.createElement("div");
                 cell.id = y + " " + x;
                 cell.classList.add("cell");
@@ -346,17 +359,19 @@ async function renderMap() {
         }
         markPlayerPosition(roomData);
     }catch(err) {
-        alert("Seite neu laden wegen: "+err.message);
+        alert(err.message);
     }
 }
 
 /**
  * Die Funktion baut das Spiel am Anfang auf, indem sie einmal alle wichtigen Informationen abruft
+ * @returns {Promise&lt;void>}
  */
 async function initGame() {
     await loadPlayerInfo();
     await renderMap();
     await getRoomData();
+
 }
 
 /**
@@ -404,4 +419,26 @@ document.addEventListener("keydown", async function (event){
     }
 });
 
-window.addEventListener("load", initGame());
+window.addEventListener("load", initGame());</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#dropDown">dropDown</a></li><li><a href="global.html#getAPI">getAPI</a></li><li><a href="global.html#initGame">initGame</a></li><li><a href="global.html#markPlayerPosition">markPlayerPosition</a></li><li><a href="global.html#pickUp">pickUp</a></li><li><a href="global.html#updateInventory">updateInventory</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Nov 19 2024 13:25:28 GMT+0100 (Mitteleuropäische Normalzeit)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
