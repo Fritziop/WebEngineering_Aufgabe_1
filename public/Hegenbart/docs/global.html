@@ -772,6 +772,94 @@
     
 
     
+    <h4 class="name" id="getRoomData"><span class="type-signature">(async) </span>getRoomData<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Die Funktion aktualisiert die Nutzeroberfläche, indem sie die Rauminformationen abfragt und die Informationen auf der Nutzeroberfläche hinzufügt<br>Dabei werden für die jeweiligen Richtungen Buttons eingefügt die je nach Türstatus eine unterschiedliche Farbe haben
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line216">line 216</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
     <h4 class="name" id="initGame"><span class="type-signature">(async) </span>initGame<span class="signature">()</span><span class="type-signature"></span></h4>
     
 
@@ -824,7 +912,95 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line415">line 415</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line367">line 367</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="loadPlayerInfo"><span class="type-signature">(async) </span>loadPlayerInfo<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Die Funktion fragt die Spielerinformationen vom Server ab und übergibt sie an die Funktion welche das auch der Nutzeroberfläche aktualisiert
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line170">line 170</a>
     </li></ul></dd>
     
 
@@ -1106,7 +1282,139 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line383">line 383</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line294">line 294</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="movePlayer"><span class="type-signature">(async) </span>movePlayer<span class="signature">(direction)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Die Funktion bewegt den Spieler in die gegebene Richtung, dabei werden evtl. Türen automatisch aufgeschlossen und geöffnet<br>Im Fehlerfall wird nicht bewegt, sondern der Raum neugeladen
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>direction</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Bewegungsrichtung</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line329">line 329</a>
     </li></ul></dd>
     
 
@@ -1326,7 +1634,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line290">line 290</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line271">line 271</a>
     </li></ul></dd>
     
 
@@ -1502,7 +1810,7 @@
 
 
 <div class="description">
-    Die Funktion aktualisiert das Inventar und den Nutzernamen auf der Benutzeroberfläche:Darstellung in Form von Buttons, welche das Hinlegen von Dingen ermöglichen
+    Die Funktion aktualisiert das Inventar auf der Benutzeroberfläche:<br>Darstellung in Form von Buttons, welche das Hinlegen von Dingen ermöglichen
 </div>
 
 
@@ -1546,7 +1854,157 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="script.js.html">script.js</a>, <a href="script.js.html#line201">line 201</a>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line199">line 199</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="updatePlayerInfo"><span class="type-signature"></span>updatePlayerInfo<span class="signature">(name, things)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Die Funktion aktualisiert den Spielername auf der Nutzeroberfläche und das Inventar im lokal gespeicherten player
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Name des Spielers</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>things</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Inventar des Spielers</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line184">line 184</a>
     </li></ul></dd>
     
 
@@ -1592,13 +2050,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#PostPatchAPI">PostPatchAPI</a></li><li><a href="global.html#changeDoorStatus">changeDoorStatus</a></li><li><a href="global.html#dropDown">dropDown</a></li><li><a href="global.html#getAPI">getAPI</a></li><li><a href="global.html#initGame">initGame</a></li><li><a href="global.html#lockDoor">lockDoor</a></li><li><a href="global.html#markPlayerPosition">markPlayerPosition</a></li><li><a href="global.html#pickUp">pickUp</a></li><li><a href="global.html#renderMap">renderMap</a></li><li><a href="global.html#unlockDoor">unlockDoor</a></li><li><a href="global.html#updateInventory">updateInventory</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#PostPatchAPI">PostPatchAPI</a></li><li><a href="global.html#changeDoorStatus">changeDoorStatus</a></li><li><a href="global.html#dropDown">dropDown</a></li><li><a href="global.html#getAPI">getAPI</a></li><li><a href="global.html#getRoomData">getRoomData</a></li><li><a href="global.html#initGame">initGame</a></li><li><a href="global.html#loadPlayerInfo">loadPlayerInfo</a></li><li><a href="global.html#lockDoor">lockDoor</a></li><li><a href="global.html#markPlayerPosition">markPlayerPosition</a></li><li><a href="global.html#movePlayer">movePlayer</a></li><li><a href="global.html#pickUp">pickUp</a></li><li><a href="global.html#renderMap">renderMap</a></li><li><a href="global.html#unlockDoor">unlockDoor</a></li><li><a href="global.html#updateInventory">updateInventory</a></li><li><a href="global.html#updatePlayerInfo">updatePlayerInfo</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Tue Nov 19 2024 22:56:15 GMT+0100 (Mitteleuropäische Normalzeit)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Wed Nov 20 2024 11:09:03 GMT+0100 (Mitteleuropäische Normalzeit)
 </footer>
 
 <script> prettyPrint(); </script>
