@@ -295,25 +295,33 @@ function markPlayerPosition(responseAPI) {
     for (let y = 0; y < 61; y++) {
         for (let x = 0; x < 61; x++) {
             const cell = document.getElementById(y +" "+x);
-            cell.classList.remove("player");
+            //cell.classList.remove("player");
+            cell.innerHTML=""
 
             if (x === player.position.x && y === player.position.y) {
                 cell.style.backgroundColor = responseAPI.color;
-                cell.classList.add("player");
+                let wallNorth = "inset 0 3px 0 0 black"
+                let wallSouth = "inset 0 -3px 0 0 black"
+                let wallEast = "inset -3px 0 0 0 black"
+                let wallWest = "inset 3px 0 0 0 black"
+                let wallMarks = [wallNorth,wallSouth,wallWest,wallEast]; //box-shadow in alle Richtungen
                 responseAPI.directions.forEach((direction) => {switch(direction) {
                     case "n":
-                        cell.classList.add("doorTop");
+                        wallMarks.splice(wallMarks.indexOf(wallNorth), 1);
                         break;
                     case "s":
-                        cell.classList.add("doorBottom");
+                        wallMarks.splice(wallMarks.indexOf(wallSouth), 1);
                         break;
                     case "e":
-                        cell.classList.add("doorRight");
+                        wallMarks.splice(wallMarks.indexOf(wallEast), 1);
                         break;
                     case "w":
-                        cell.classList.add("doorLeft");
+                        wallMarks.splice(wallMarks.indexOf(wallWest), 1);
                         break;
                 }})
+                cell.style.boxShadow = wallMarks.join(",");
+                cell.classList.add("player");
+                cell.textContent="P"
             }
         }
     }
@@ -410,4 +418,4 @@ document.addEventListener("keydown", async function (event){
 });
 
 window.addEventListener("load", initGame); //Initialisieren des Spiels bei Laden des Fensters
-setInterval(getRoomData, 1000); // Abfrage der aktuellen Rauminformationen jede Sekunde
+//setInterval(getRoomData, 1000); // Abfrage der aktuellen Rauminformationen jede Sekunde
