@@ -4,7 +4,6 @@ body {
     width: 100%;
     max-width: 1200px; /* Optional: maximale Breite */
     margin: 0 auto; /* Zentrieren ohne justify-content */
-
 }
 
 header {
