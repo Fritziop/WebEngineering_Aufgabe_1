@@ -4,13 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MUD Client</title>
-  <link rel="stylesheet" href="test.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pirata+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" async></script>
 </head>
 <body>
 <header>
   <h1>MUD Game</h1>
   <div id="player-info">
     <h4>Benutzername: <span id="playerName"></span></h4>
+    <h4>Raumbeschreibung:</h4>
     <div id="RoomDescription"></div>
     <h4>Inventar:</h4>
     <ul id="inventory"></ul>
@@ -29,6 +34,5 @@
     <ul id="players"></ul>
   </div>
 </main>
-<script src="script.js"></script>
 </body>
 </html>

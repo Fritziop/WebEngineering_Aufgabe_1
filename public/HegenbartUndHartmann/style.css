@@ -1,16 +1,25 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Pirata One", sans-serif;
+    font-size: 23px;
     background-color: dimgray;
     width: 100%;
     max-width: 1200px; /* Optional: maximale Breite */
     margin: 0 auto; /* Zentrieren ohne justify-content */
 }
+.pirata-one-regular {
+    font-family: "Pirata One", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
 
 header {
     text-align: center;
+    justify-items: center;
 }
 
 main {
+    position: absolute;
+    top: 700px;
     text-align: center;
 
 }
@@ -43,4 +52,18 @@ main {
 #message-area {
     margin-top: 20px;
     color: red;
+}
+
+#players {
+    list-style-type: none;
+    padding: 0;
+}
+
+h1 {
+    background-color: lightgrey;
+    border: black solid 4px;
+}
+h4 {
+    border-top: black solid 4px;
+    padding: 5px;
 }

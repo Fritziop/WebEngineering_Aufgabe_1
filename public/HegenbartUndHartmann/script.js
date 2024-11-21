@@ -224,6 +224,8 @@ async function getRoomData()
         itemList.innerHTML = "";
         const directionsList = document.getElementById("directions");
         directionsList.innerHTML = "";
+        const roomDescription = document.getElementById("RoomDescription");
+        roomDescription.innerHTML = playerData.description;
 
         playerData.persons.forEach(item => {
             const listItem = document.createElement("li");
@@ -362,6 +364,7 @@ async function movePlayer(direction) {
                 player.position.x--;
                 break;
         }
+        localStorage.setItem("playerPosition", JSON.stringify(player.position));
         markPlayerPosition(roomData);
     } catch (error) {
         console.log(error.message)
@@ -373,6 +376,10 @@ async function movePlayer(direction) {
  * Die Funktion baut das Spiel am Anfang auf, indem sie einmal alle wichtigen Informationen abruft
  */
 async function initGame() {
+    const playerPosition = JSON.parse(localStorage.getItem("playerPosition"));
+    if (playerPosition != null) {
+        player.position = playerPosition;
+    }
     await loadPlayerInfo();
     await renderMap();
     await getRoomData();
