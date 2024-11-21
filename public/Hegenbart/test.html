@@ -10,14 +10,13 @@
 <header>
   <h1>MUD Game</h1>
   <div id="player-info">
-    <p>Benutzername: <span id="playerName"></span></p>
-    <p>Inventar:</p>
+    <h4>Benutzername: <span id="playerName"></span></h4>
+    <div id="RoomDescription"></div>
+    <h4>Inventar:</h4>
     <ul id="inventory"></ul>
-    <p>Dinge im Raum:</p>
+    <h4>Dinge im Raum:</h4>
     <ul id="things"></ul>
-    <p>Spieler:</p>
-    <ul id="players"></ul>
-    <p>Mögliche Richtungen:</p>
+    <h4>Mögliche Richtungen:</h4>
     <ul id="directions"></ul>
   </div>
 </header>
@@ -25,7 +24,10 @@
   <div id="map-container">
     <div id="map"></div>
   </div>
-  <div id="message-area"></div>
+  <div id="playerList">
+    <h4>Spieler:</h4>
+    <ul id="players"></ul>
+  </div>
 </main>
 <script src="script.js"></script>
 </body>

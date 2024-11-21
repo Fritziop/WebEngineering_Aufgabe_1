@@ -1,22 +1,22 @@
 body {
     font-family: Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0;
-    padding: 0;
     background-color: dimgray;
+    width: 100%;
+    max-width: 1200px; /* Optional: maximale Breite */
+    margin: 0 auto; /* Zentrieren ohne justify-content */
 }
 
-header, main {
-    width: 100%;
-    max-width: 800px;
+header {
     text-align: center;
+}
+
+main {
+    text-align: center;
+
 }
 
 #map-container {
     display: flex;
-    justify-content: center;
     margin-top: 20px;
 }
 

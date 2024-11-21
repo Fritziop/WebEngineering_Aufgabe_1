@@ -418,4 +418,4 @@ document.addEventListener("keydown", async function (event){
 });
 
 window.addEventListener("load", initGame); //Initialisieren des Spiels bei Laden des Fensters
-//setInterval(getRoomData, 1000); // Abfrage der aktuellen Rauminformationen jede Sekunde
+setInterval(getRoomData, 1000); // Abfrage der aktuellen Rauminformationen jede Sekunde
